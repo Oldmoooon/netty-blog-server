@@ -1,5 +1,6 @@
 package server;
 
+import common.Constants;
 import common.Logger;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -15,8 +16,6 @@ import server.handler.MyHandler;
  * @date 2018/9/5
  */
 public class App {
-    private static final int PORT = 8888;
-
     public static void start() {
         /*
           这是两个多线程的事件循环，boss接受传入的连接，并把它注册到worker，worker处理它们。
@@ -50,7 +49,7 @@ public class App {
                       netty中的Future继承自jdk中的Future，增加了一些操作；
                       netty中的ChannelFuture继承自netty中的Future，表示channel中I/O操作的结果，在netty中所有的I/O操作都是异步的。
                      */
-                    .bind(PORT)
+                    .bind(Constants.PORT)
                     //等待动作完成，并在失败后重新抛出异常，如果动作没有完成则会阻塞
                     .sync()
                     //返回值是一个channel，I/O操作将在这个channel的实例中发生

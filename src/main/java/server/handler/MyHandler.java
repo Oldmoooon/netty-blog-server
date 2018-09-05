@@ -3,6 +3,7 @@ package server.handler;
 import cn.hutool.core.util.CharsetUtil;
 import common.Logger;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
@@ -24,14 +25,15 @@ public class MyHandler extends ChannelHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        if (msg instanceof ByteBuf) {
-            ByteBuf in = (ByteBuf) msg;
-            Logger.server.debug(in.toString(CharsetUtil.CHARSET_UTF_8));
-            ctx.write(msg);
-            ctx.flush();
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        ByteBuf buffer = ctx.alloc().buffer(8);
+        buffer.writeLong(System.currentTimeMillis());
+        ChannelFuture future = ctx.writeAndFlush(buffer).sync();
+        if (future.isSuccess()) {
+            Logger.server.debug("result to {} is success.", future.channel().remoteAddress());
+            ctx.close();
         } else {
-            Logger.server.error("msg is not instance of byteBuf : {}", msg.toString());
+            Logger.server.error(future.cause());
         }
     }
 
