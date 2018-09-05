@@ -5,6 +5,7 @@ import common.Logger;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPromise;
 import io.netty.util.ReferenceCountUtil;
 
 /**
@@ -24,15 +25,13 @@ public class MyHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        try {
-            if (msg instanceof ByteBuf) {
-                ByteBuf in = (ByteBuf) msg;
-                Logger.server.debug(in.toString(CharsetUtil.CHARSET_UTF_8));
-            } else {
-                Logger.server.error("msg is not instance of byteBuf : {}", msg.toString());
-            }
-        } finally {
-            ReferenceCountUtil.release(msg);
+        if (msg instanceof ByteBuf) {
+            ByteBuf in = (ByteBuf) msg;
+            Logger.server.debug(in.toString(CharsetUtil.CHARSET_UTF_8));
+            ctx.write(msg);
+            ctx.flush();
+        } else {
+            Logger.server.error("msg is not instance of byteBuf : {}", msg.toString());
         }
     }
 
