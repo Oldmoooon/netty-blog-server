@@ -2,12 +2,9 @@ package client.handler;
 
 import common.Logger;
 import common.model.Time;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.ReferenceCountUtil;
-
-import java.util.Date;
 
 /**
  * @author guyue

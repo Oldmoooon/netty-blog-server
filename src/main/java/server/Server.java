@@ -16,7 +16,7 @@ import server.handler.MyServerHandler;
  * @author guyue
  * @date 2018/9/5
  */
-public class App {
+public class Server {
     public static void start() {
         /*
           这是两个多线程的事件循环，boss接受传入的连接，并把它注册到worker，worker处理它们。
