@@ -9,6 +9,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import server.handler.MyEncoder;
 import server.handler.MyServerHandler;
 
 /**
@@ -36,7 +37,7 @@ public class App {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new MyServerHandler());
+                            ch.pipeline().addLast(new MyEncoder(), new MyServerHandler());
                         }
                     })
                     //此处的参数在bind()或connect()时被设置到ServerChannel，该ServerChannel在boss线程工作

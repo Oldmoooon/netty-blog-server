@@ -1,6 +1,7 @@
 package client.handler;
 
 import common.Logger;
+import common.model.Time;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -16,9 +17,10 @@ public class MyClientHandler extends ChannelHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
-            ByteBuf buffer = (ByteBuf) msg;
-            long currentTimeMills = buffer.readLong();
-            Logger.server.debug("Time: {}", new Date(currentTimeMills));
+            Time time = (Time) msg;
+            Logger.server.debug("Time: {}", time);
+        } catch (Exception e) {
+            Logger.client.error("msg type is {}.", msg.getClass());
         } finally {
             ReferenceCountUtil.release(msg);
         }
