@@ -1,5 +1,7 @@
 package client;
 
+import client.handler.MyClientHandler;
+import client.handler.MyDecoder;
 import common.Constants;
 import common.Logger;
 import io.netty.bootstrap.Bootstrap;
@@ -34,24 +36,7 @@ public class Client {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new ChannelHandlerAdapter() {
-                                @Override
-                                public void channelRead(ChannelHandlerContext ctx, Object msg) {
-                                    try {
-                                        ByteBuf buffer = (ByteBuf) msg;
-                                        long currentTimeMills = buffer.readLong();
-                                        Logger.server.debug("Time: {}", new Date(currentTimeMills));
-                                    } finally {
-                                        ReferenceCountUtil.release(msg);
-                                    }
-                                }
-
-                                @Override
-                                public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-                                    Logger.server.error(cause);
-                                    ctx.close();
-                                }
-                            });
+                            ch.pipeline().addLast(new MyDecoder(), new MyClientHandler());
                         }
                     })
                     //和服务端不同的，客户端应该连接服务器，而服务器会绑定一个端口，并监听网络请求

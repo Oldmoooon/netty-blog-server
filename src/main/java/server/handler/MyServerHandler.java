@@ -13,7 +13,7 @@ import io.netty.util.ReferenceCountUtil;
  * @author guyue
  * @date 2018/9/5
  */
-public class MyHandler extends ChannelHandlerAdapter {
+public class MyServerHandler extends ChannelHandlerAdapter {
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         Logger.server.debug("channel registered.");

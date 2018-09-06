@@ -10,5 +10,9 @@ import cn.hutool.log.LogFactory;
 public class Logger {
     public static Log server = LogFactory.get(Server.class);
 
+    public static Log client = LogFactory.get(Client.class);
+
     private static class Server {}
+
+    private static class Client {}
 }
