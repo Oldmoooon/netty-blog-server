@@ -1,10 +1,12 @@
 package server.handler;
 
 import common.Logger;
+import common.model.Message;
 import common.model.Time;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import server.service.RoomService;
+import server.service.SessionService;
 
 /**
  * @author guyue
@@ -12,23 +14,19 @@ import io.netty.channel.ChannelHandlerContext;
  */
 public class MyServerHandler extends ChannelHandlerAdapter {
     @Override
-    public void channelRegistered(ChannelHandlerContext ctx) {
-        Logger.server.debug("channel registered.");
+    public void channelActive(ChannelHandlerContext ctx) {
+        ctx.writeAndFlush(new Message(new Time().toString()));
+        int id = SessionService.get(ctx).getId();
+        RoomService.comeIn(id);
     }
 
     @Override
-    public void channelUnregistered(ChannelHandlerContext ctx) {
-        Logger.server.debug("channel unregistered.");
-    }
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ChannelFuture future = ctx.writeAndFlush(new Time()).sync();
-        if (future.isSuccess()) {
-            Logger.server.debug("result to {} is success.", future.channel().remoteAddress());
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        Message message = (Message) msg;
+        int id = SessionService.get(ctx).getId();
+        RoomService.speakIn(id, message);
+        if (RoomService.QUIT_MESSAGE.equals(message.getMsg())) {
             ctx.close();
-        } else {
-            Logger.server.error(future.cause());
         }
     }
 

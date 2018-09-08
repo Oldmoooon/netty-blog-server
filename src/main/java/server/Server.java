@@ -2,6 +2,8 @@ package server;
 
 import common.Constants;
 import common.Logger;
+import common.handler.MyDecoder;
+import common.handler.MyEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -9,8 +11,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import server.handler.MyEncoder;
 import server.handler.MyServerHandler;
+import server.handler.UnderlyingNetHandler;
 
 /**
  * @author guyue
@@ -37,7 +39,11 @@ public class Server {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new MyEncoder(), new MyServerHandler());
+                            ch.pipeline().addLast(
+                                    new MyEncoder(),
+                                    new MyDecoder(),
+                                    new UnderlyingNetHandler(),
+                                    new MyServerHandler());
                         }
                     })
                     //此处的参数在bind()或connect()时被设置到ServerChannel，该ServerChannel在boss线程工作

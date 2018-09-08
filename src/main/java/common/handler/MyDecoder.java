@@ -1,10 +1,11 @@
-package client.handler;
+package common.handler;
 
-import common.model.Time;
+import common.model.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -14,6 +15,10 @@ import java.util.List;
 public class MyDecoder extends ReplayingDecoder<Void> {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
-        out.add(new Time(in.readLong()));
+        int length = in.readInt();
+        ByteBuf byteBuf = in.readBytes(length);
+        String msg = byteBuf.toString(Charset.defaultCharset());
+        Message message = new Message(msg);
+        out.add(message);
     }
 }

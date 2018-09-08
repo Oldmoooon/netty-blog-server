@@ -1,7 +1,7 @@
 package client.handler;
 
 import common.Logger;
-import common.model.Time;
+import common.model.Message;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.ReferenceCountUtil;
@@ -14,8 +14,8 @@ public class MyClientHandler extends ChannelHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
-            Time time = (Time) msg;
-            Logger.server.debug("Time: {}", time);
+            Message message = (Message) msg;
+            Logger.server.debug("remote: {}", message);
         } catch (Exception e) {
             Logger.client.error("msg type is {}.", msg.getClass());
         } finally {
