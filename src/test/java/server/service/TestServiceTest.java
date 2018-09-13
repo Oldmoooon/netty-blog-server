@@ -39,8 +39,7 @@ public class TestServiceTest {
     @Test
     public void add() {
         //setup
-        PowerMockito.spy(TestService.class);
-        TestModel mock = PowerMockito.mock(TestModel.class);
+        TestModel mock = PowerMockito.spy(b);
         try {
             PowerMockito.when(mock, "getValue").thenReturn(3);
         } catch (Exception e) {
