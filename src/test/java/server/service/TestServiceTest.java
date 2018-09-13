@@ -26,8 +26,7 @@ public class TestServiceTest {
     @Test(dataProvider = "provider")
     public void testAdd(int a, TestModel b) {
         //setup
-        PowerMockito.spy(TestService.class);
-        TestModel mock = PowerMockito.mock(TestModel.class);
+        TestModel mock = PowerMockito.spy(b);
         try {
             PowerMockito.when(mock, "getValue").thenReturn(3);
         } catch (Exception e) {
