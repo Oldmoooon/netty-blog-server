@@ -12,7 +12,14 @@ public class Logger {
 
     public static Log client = LogFactory.get(Client.class);
 
-    private static class Server {}
+    public static Log test = LogFactory.get(Test.class);
 
-    private static class Client {}
+    private static class Server {
+    }
+
+    private static class Client {
+    }
+
+    private static class Test {
+    }
 }

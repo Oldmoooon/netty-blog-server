@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class RoomService {
     public final static String QUIT_MESSAGE = "bye";
-    private static Map<Integer, Room> rooms = Maps.newConcurrentMap();
+    public static Map<Integer, Room> rooms = Maps.newConcurrentMap();
 
     public static void comeIn(int id) {
         Room room = rooms.get(id);
