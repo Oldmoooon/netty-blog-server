@@ -9,8 +9,11 @@ class TestServiceTest extends Specification {
         TestModel mock = Mock()
         mock.getValue() >> 3
 
-        expect:
+        when:
         TestService.add(a, mock) == c
+
+        then:
+        1 * mock.getValue()
 
         where:
         a | b || c
