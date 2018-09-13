@@ -5,27 +5,22 @@ plugins {
 group 'name.guyue'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 10
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.testng/testng
-    testCompile group: 'org.testng', name: 'testng', version: '7.0.0-beta1'
-    // https://mvnrepository.com/artifact/org.mockito/mockito-all
-    //    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.22.0'
+    // https://mvnrepository.com/artifact/org.powermock/powermock-core
+    testCompile group: 'org.powermock', name: 'powermock-core', version: '2.0.0-beta.5'
+    // https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4
+    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.0-beta.5'
     // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito2
     testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.0-beta.5'
-    // https://mvnrepository.com/artifact/org.powermock/powermock-module-testng
-    testCompile group: 'org.powermock', name: 'powermock-module-testng', version: '2.0.0-beta.5'
-    // https://mvnrepository.com/artifact/org.powermock/powermock-module-testng-common
-    compile group: 'org.powermock', name: 'powermock-module-testng-common', version: '2.0.0-beta.5'
-    // https://mvnrepository.com/artifact/org.powermock/powermock-api-support
-    compile group: 'org.powermock', name: 'powermock-api-support', version: '2.0.0-beta.5'
     // https://mvnrepository.com/artifact/io.netty/netty-all
     compile group: 'io.netty', name: 'netty-all', version: '5.0.0.Alpha2'
     // https://mvnrepository.com/artifact/cn.hutool/hutool-all

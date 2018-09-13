@@ -1,23 +1,20 @@
 package server.service;
 
+import com.google.common.collect.Lists;
 import common.Logger;
 import common.model.Message;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.testng.PowerMockTestCase;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import org.testng.collections.Lists;
 
 import java.util.Iterator;
 import java.util.List;
 
 @PrepareForTest(RoomService.class)
 @PowerMockIgnore({ "org.apache.logging.*", "com.sun.org.apache.xerces.*" })
-public class RoomServiceTest extends PowerMockTestCase {
-    @DataProvider(name = "idProvider")
+public class RoomServiceTest {
     Iterator<Object> idProvide() {
         List<Object> list = Lists.newLinkedList();
         for (int i = 1; i <= 10; i++) {
@@ -26,7 +23,7 @@ public class RoomServiceTest extends PowerMockTestCase {
         return list.iterator();
     }
 
-    @Test(dataProvider = "idProvider")
+    @Test
     public void testComeIn(int id) {
         PowerMockito.spy(RoomService.class);
         String speakIn = "speakIn";
