@@ -1,11 +1,9 @@
 package server.handler;
 
-import common.Constants;
 import common.Logger;
 import common.model.Message;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import server.model.Session;
 import server.service.RoomService;
 import server.service.SessionService;
 import server.service.UserService;
@@ -21,11 +19,6 @@ public class UnderlyingNetHandler extends ChannelHandlerAdapter {
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         Logger.server.info("{} registered.", ctx);
         SessionService.add(ctx);
-        Session session = SessionService.get(ctx);
-        if (!UserService.loginAndRegister(session.getId(), Constants.INIT_PSWD, session)) {
-            SessionService.remove(ctx);
-            ctx.close();
-        }
     }
 
     @Override

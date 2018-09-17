@@ -15,7 +15,7 @@ import java.util.Map;
 public class UserService {
     private static Map<Integer, User> users = Maps.newConcurrentMap();
 
-    static User get(int id) {
+    public static User get(int id) {
         return users.get(id);
     }
 

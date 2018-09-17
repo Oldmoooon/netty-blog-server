@@ -3,6 +3,7 @@ package client;
 import client.handler.MyClientHandler;
 import common.Constants;
 import common.Logger;
+import common.OpCode;
 import common.handler.MyDecoder;
 import common.handler.MyEncoder;
 import common.model.Message;
@@ -65,7 +66,9 @@ public class Client {
                 break;
             }
             try {
-                ChannelFuture future = channel.writeAndFlush(new Message(enter)).sync();
+                ChannelFuture future = channel
+                        .writeAndFlush(new Message(OpCode.DEFAULT_MESSAGE, enter))
+                        .sync();
                 if (future.isSuccess()) {
                     Logger.client.info("send message success.");
                 } else {

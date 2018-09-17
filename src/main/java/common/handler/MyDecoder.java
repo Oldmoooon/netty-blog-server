@@ -15,10 +15,11 @@ import java.util.List;
 public class MyDecoder extends ReplayingDecoder<Void> {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
+        int code = in.readInt();
         int length = in.readInt();
         ByteBuf byteBuf = in.readBytes(length);
         String msg = byteBuf.toString(Charset.defaultCharset());
-        Message message = new Message(msg);
+        Message message = new Message(code, msg);
         out.add(message);
     }
 }
