@@ -1,7 +1,6 @@
 package server.handler;
 
 import common.Logger;
-import common.model.Message;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import server.service.RoomService;
@@ -26,6 +25,6 @@ public class UnderlyingNetHandler extends ChannelHandlerAdapter {
         Logger.server.info("{} unregistered.", ctx);
         SessionService.remove(ctx);
         UserService.logout(SessionService.get(ctx).getId());
-        ctx.fireChannelRead(new Message(RoomService.QUIT_MESSAGE));
+        ctx.fireChannelRead(RoomService.QUIT_MESSAGE);
     }
 }

@@ -16,7 +16,7 @@ public final class ChatProcessor implements IProcessor{
     public void process(ChannelHandlerContext ctx, Message message) {
         int id = SessionService.get(ctx).getId();
         RoomService.speakIn(id, message);
-        if (RoomService.QUIT_MESSAGE.equals(message.getMsg())) {
+        if (RoomService.QUIT_MESSAGE.getMsg().equals(message.getMsg())) {
             ctx.close();
         }
     }

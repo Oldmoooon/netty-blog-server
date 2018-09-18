@@ -1,5 +1,7 @@
 package common.model;
 
+import com.google.gson.JsonObject;
+import common.Constants;
 import common.OpCode;
 
 /**
@@ -8,20 +10,27 @@ import common.OpCode;
  */
 public class Message {
     private int code;
-    private String msg;
+    private JsonObject msg;
 
     public Message() {
     }
 
     public Message(String msg) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty(Constants.MSG_KEY, msg);
+        this.code = OpCode.DEFAULT_MESSAGE.getCode();
+        this.msg = jsonObject;
+    }
+
+    public Message(JsonObject msg) {
         this(OpCode.DEFAULT_MESSAGE, msg);
     }
 
-    public Message(OpCode opCode, String msg) {
+    public Message(OpCode opCode, JsonObject msg) {
         this(opCode.getCode(), msg);
     }
 
-    public Message(int code, String msg) {
+    public Message(int code, JsonObject msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -34,11 +43,11 @@ public class Message {
         this.code = code;
     }
 
-    public String getMsg() {
+    public JsonObject getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(JsonObject msg) {
         this.msg = msg;
     }
 

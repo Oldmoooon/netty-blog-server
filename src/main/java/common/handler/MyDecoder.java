@@ -1,5 +1,7 @@
 package common.handler;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import common.model.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,7 +20,8 @@ public class MyDecoder extends ReplayingDecoder<Void> {
         int code = in.readInt();
         int length = in.readInt();
         ByteBuf byteBuf = in.readBytes(length);
-        String msg = byteBuf.toString(Charset.defaultCharset());
+        String msgStr = byteBuf.toString(Charset.defaultCharset());
+        JsonObject msg = new JsonParser().parse(msgStr).getAsJsonObject();
         Message message = new Message(code, msg);
         out.add(message);
     }

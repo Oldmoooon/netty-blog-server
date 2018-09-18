@@ -13,4 +13,6 @@ public class Constants {
 
     public final static String INIT_NAME = "user";
     public final static String INIT_PSWD = "pswd";
+
+    public final static String MSG_KEY = "MSG_KEY";
 }

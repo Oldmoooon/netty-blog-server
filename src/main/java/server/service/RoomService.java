@@ -14,8 +14,8 @@ import java.util.Map;
  * @date 2018/9/6
  */
 public class RoomService {
-    public final static String QUIT_MESSAGE = "bye";
-    public static Map<Integer, Room> rooms = Maps.newConcurrentMap();
+    public final static Message QUIT_MESSAGE = new Message("bye");
+    private static Map<Integer, Room> rooms = Maps.newConcurrentMap();
 
     public static void comeIn(int id) {
         Room room = rooms.get(id);
@@ -54,7 +54,7 @@ public class RoomService {
     }
 
     private static boolean isLeaveMessage(Message message) {
-        return QUIT_MESSAGE.equals(message.getMsg());
+        return QUIT_MESSAGE.getMsg().equals(message.getMsg());
     }
 
     private static boolean checkLeave(int id, Message msg) {

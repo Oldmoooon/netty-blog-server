@@ -14,7 +14,7 @@ public class MyEncoder extends MessageToByteEncoder<Message> {
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) {
         int code = msg.getCode();
         out.writeInt(code);
-        byte[] bytes = msg.getMsg().getBytes();
+        byte[] bytes = msg.getMsg().getAsString().getBytes();
         out.writeInt(bytes.length);
         out.writeBytes(bytes);
     }
