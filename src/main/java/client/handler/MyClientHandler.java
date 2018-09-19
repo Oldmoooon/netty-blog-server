@@ -24,6 +24,12 @@ public class MyClientHandler extends ChannelHandlerAdapter {
     }
 
     @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        Logger.client.info("logout...");
+        System.exit(0);
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         Logger.server.error(cause);
         ctx.close();

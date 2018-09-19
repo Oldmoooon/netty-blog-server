@@ -1,8 +1,10 @@
 package client;
 
 import client.handler.MyClientHandler;
+import com.google.gson.JsonObject;
 import common.Constants;
 import common.Logger;
+import common.OpCode;
 import common.handler.MyDecoder;
 import common.handler.MyEncoder;
 import common.model.Message;
@@ -58,10 +60,28 @@ public class Client {
 
     public static void mainLoop(Channel channel) {
         Scanner in = new Scanner(System.in);
-        Logger.client.info("Login...");
+        int id = in.nextInt();
+        String pswd = in.next();
+        JsonObject loginParams = new JsonObject();
+        loginParams.addProperty("id", id);
+        loginParams.addProperty("pswd", pswd);
+        Message login = new Message(OpCode.LOGIN, loginParams);
+        try {
+            ChannelFuture channelFuture = channel.writeAndFlush(login).sync();
+            if (channelFuture.isSuccess()) {
+                Logger.client.info("Login success.");
+            } else {
+                Logger.client.error(channelFuture.cause(), "login failed.");
+            }
+        } catch (InterruptedException e) {
+            Logger.client.error(e, "login interrupted.");
+        }
         while (in.hasNextLine()) {
             String enter = in.nextLine();
             if ("".equals(enter)) {
+                continue;
+            }
+            if ("exit".equals(enter)) {
                 break;
             }
             try {

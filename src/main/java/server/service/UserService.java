@@ -33,6 +33,14 @@ public class UserService {
 
     private static boolean login(int id, String pswd, Session session) {
         if (correct(id, pswd)) {
+            if (session.getId() != id) {
+                SessionService.remove(session.getId());
+                session.setId(id);
+                if (!SessionService.add(session)) {
+                    Logger.server.error("user_{} already login.", id);
+                    session.getCtx().close();
+                }
+            }
             get(id).setSession(session);
             return true;
         }

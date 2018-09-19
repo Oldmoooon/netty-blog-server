@@ -37,12 +37,25 @@ public class SessionService {
         sessions.put(id, session);
     }
 
+    public static boolean add(Session session) {
+        if (sessions.containsKey(session.getId())) {
+            return false;
+        } else {
+            sessions.put(session.getId(), session);
+            return true;
+        }
+    }
+
     public static void remove(ChannelHandlerContext ctx) {
         Session session = get(ctx);
         if (session != null) {
             int id = session.getId();
             sessions.remove(id);
         }
+    }
+
+    public static void remove(int id) {
+        sessions.remove(id);
     }
 
     public static Session get(ChannelHandlerContext ctx) {

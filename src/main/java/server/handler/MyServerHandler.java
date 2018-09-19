@@ -10,7 +10,6 @@ import server.ProcessorEnum;
 import server.annotation.Processor;
 import server.model.Session;
 import server.processor.IProcessor;
-import server.service.RoomService;
 import server.service.SessionService;
 import server.service.UserService;
 
@@ -22,8 +21,6 @@ public class MyServerHandler extends ChannelHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         ctx.writeAndFlush(new Message(new Time().toString()));
-        int id = SessionService.get(ctx).getId();
-        RoomService.comeIn(id);
     }
 
     @Override
@@ -32,8 +29,8 @@ public class MyServerHandler extends ChannelHandlerAdapter {
         int code = ((Message) msg).getCode();
         Session session = SessionService.get(ctx);
         IProcessor processor = ProcessorEnum.processorGet(OpCode.valueOf(code));
-        if (UserService.get(session.getId()) == null && !processor.getClass()
-                .getAnnotation(Processor.class).isLogin()) {
+        if (UserService.get(session.getId()) == null
+                && !processor.getClass().getAnnotation(Processor.class).isLogin()) {
             SessionService.remove(ctx);
             ctx.close();
             return;
