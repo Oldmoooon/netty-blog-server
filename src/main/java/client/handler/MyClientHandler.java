@@ -1,5 +1,6 @@
 package client.handler;
 
+import common.Constants;
 import common.Logger;
 import common.model.Message;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -15,7 +16,7 @@ public class MyClientHandler extends ChannelHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
             Message message = (Message) msg;
-            Logger.server.debug("remote: {}", message);
+            Logger.server.debug("Remote:{}", message.getMsg().get(Constants.MSG_KEY).getAsString());
         } catch (Exception e) {
             Logger.client.error("msg type is {}.", msg.getClass());
         } finally {
