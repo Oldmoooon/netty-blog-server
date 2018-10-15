@@ -1,4 +1,4 @@
-package server.annotation;
+package base.annoation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,10 +7,10 @@ import java.lang.annotation.Target;
 
 /**
  * @author guyue
- * @date 2018/9/17
+ * @date 2018/10/15
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Processor {
-    boolean isLogin() default false;
+@Target({ ElementType.TYPE })
+public @interface Page {
+    String name() default "home";
 }
