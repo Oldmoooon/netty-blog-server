@@ -21,4 +21,6 @@ public class Constants {
     public static final String HOME_TEMPLATE = "index.html";
     public static final String CONTENT_TEMPLATE = "content.html";
     public static final String ERROR_TEMPLATE = "error.html";
+
+    public static final String HTML_HEADER_VALUE = "text/html";
 }

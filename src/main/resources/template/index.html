@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>HOME</title>
 </head>
 <body>
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>CONTENT</th>
+    </tr>
+    <tr th:each="per : ${data.entrySet()}">
+        <td th:text="${per.getKey()}">name</td>
+        <td th:text="${per.getValue()}">content</td>
+    </tr>
+</table>
 </body>
 </html>
