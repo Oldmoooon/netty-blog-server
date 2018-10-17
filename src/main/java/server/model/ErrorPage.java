@@ -7,7 +7,8 @@ package server.model;
 
 import base.Constants;
 import base.annoation.Page;
+import base.enums.PageType;
 
-@Page(name = Constants.ERROR_PAGE)
+@Page(type = PageType.ERROR, template = Constants.ERROR_TEMPLATE)
 public class ErrorPage extends BasePage {
 }

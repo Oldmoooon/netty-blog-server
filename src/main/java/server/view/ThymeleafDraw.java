@@ -12,12 +12,17 @@ import java.io.StringWriter;
  * @date 2018/10/15
  */
 public class ThymeleafDraw implements IDraw {
-    @Override
-    public String draw(BasePage page) {
-        TemplateEngine templateEngine = new TemplateEngine();
+    private static TemplateEngine templateEngine;
+
+    static {
+        templateEngine = new TemplateEngine();
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode("HTML");
         templateEngine.setTemplateResolver(templateResolver);
+    }
+
+    @Override
+    public String draw(BasePage page) {
         Context context = new Context();
         context.setVariables(page.getContent());
         StringWriter stringWriter = new StringWriter();

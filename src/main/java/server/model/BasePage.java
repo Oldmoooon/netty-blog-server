@@ -3,6 +3,7 @@ package server.model;
 import base.Constants;
 import base.Logger;
 import base.annoation.Page;
+import base.enums.PageType;
 import com.google.common.collect.Maps;
 import org.reflections.Reflections;
 
@@ -21,7 +22,7 @@ public class BasePage {
      * key: page name
      * value: page class
      */
-    private static Map<String, Class<? extends BasePage>> data = Maps.newConcurrentMap();
+    private static Map<PageType, Class<? extends BasePage>> data = Maps.newConcurrentMap();
 
     //init
     static {
@@ -44,7 +45,7 @@ public class BasePage {
         this.content = content;
     }
 
-    public static Map<String, Class<? extends BasePage>> getData() {
+    public static Map<PageType, Class<? extends BasePage>> getData() {
         return data;
     }
 
@@ -56,12 +57,8 @@ public class BasePage {
                 continue;
             }
             Page ann = per.getAnnotation(Page.class);
-            data.put(ann.name(), per);
+            data.put(ann.type(), per);
             Logger.logic.info("load page class {} success.", per.getSimpleName());
         }
-    }
-
-    protected String buildTemplatePath(String fName) {
-        return Constants.TEMPLATE_DIR + fName;
     }
 }

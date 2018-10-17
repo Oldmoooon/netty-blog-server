@@ -20,9 +20,11 @@ import io.netty.handler.codec.http.HttpVersion;
 public abstract class BaseController extends SimpleChannelInboundHandler<FullHttpRequest> {
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest req) {
+        Logger.system.info("message {} to {} from {}",
+                req.method(), req.uri(), ctx.channel().remoteAddress());
         FullHttpResponse res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         HttpHeaders headers = res.headers();
-        headers.add(HttpHeaderNames.CONTENT_TYPE, Constants.HTML_HEADER_VALUE);
+        headers.add(HttpHeaderNames.CONTENT_TYPE, Constants.HTML_HEADER_VALUE_HTML);
         headers.add(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
         doResponse(req, res);
         headers.add(HttpHeaderNames.CONTENT_LENGTH, String.valueOf(res.content().readableBytes()));

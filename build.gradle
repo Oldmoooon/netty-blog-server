@@ -13,9 +13,9 @@ repositories {
 
 dependencies {
     //spock
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
     compile 'org.objenesis:objenesis:1.4'
     compile "cglib:cglib:2.2"
-    testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
     // https://mvnrepository.com/artifact/io.netty/netty-all
     compile group: 'io.netty', name: 'netty-all', version: '5.0.0.Alpha2'
     // https://mvnrepository.com/artifact/cn.hutool/hutool-all
@@ -30,4 +30,10 @@ dependencies {
     compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.10.RELEASE'
     // https://mvnrepository.com/artifact/org.reflections/reflections
     compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+    // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-util
+    compile group: 'com.vladsch.flexmark', name: 'flexmark-util', version: '0.34.48'
+    // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark
+    compile group: 'com.vladsch.flexmark', name: 'flexmark', version: '0.34.48'
+    // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-ext-tables
+    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-tables', version: '0.34.48'
 }
