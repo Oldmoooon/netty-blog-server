@@ -62,3 +62,9 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+.classpath
+.project
+.settings/
+bin/
+src/test/java/server/
+src/test/resources/
